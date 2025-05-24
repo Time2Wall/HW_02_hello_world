@@ -63,13 +63,13 @@ static const struct kernel_param_ops my_str_ops = {
 };
 
 module_param_cb(idx, &idx_ops, NULL, 0644);
-MODULE_PARM_DESC(idx, "Индекс символа в строке");
+MODULE_PARM_DESC(idx, "Charcter index in a string");
 
 module_param_cb(ch_val, &ch_val_ops, NULL, 0644);
-MODULE_PARM_DESC(ch_val, "ASCII-код символа");
+MODULE_PARM_DESC(ch_val, "ASCII-code");
 
 module_param_cb(my_str, &my_str_ops, NULL, 0444);
-MODULE_PARM_DESC(my_str, "Собранная строка");
+MODULE_PARM_DESC(my_str, "Finalized String");
 
 static int __init hello_init(void)
 {
