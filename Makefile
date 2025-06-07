@@ -1,13 +1,16 @@
+KDIR ?= /lib/modules/$(shell uname -r)/build
+PWD := $(shell pwd)
+
 .PHONY: all clean format check
 
 all:
-	$(MAKE) -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+	$(MAKE) -C $(KDIR) M=$(PWD) modules
 
 clean:
-	$(MAKE) -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+	$(MAKE) -C $(KDIR) M=$(PWD) clean
 
 format:
-	clang-format -i hello.c
+	clang-format -i *.c
 
 check:
 	./check.sh

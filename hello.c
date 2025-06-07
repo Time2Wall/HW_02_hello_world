@@ -29,18 +29,24 @@ static int param_get_idx(char *buffer, const struct kernel_param *kp)
 
 static int param_set_ch_val(const char *val, const struct kernel_param *kp)
 {
-	int res = kstrtoint(val, 10, &ch_val);
-	if (res < 0)
-		return res;
+	if (val[0] == '\0')
+		return -EINVAL;
+
+	if (val[1] != '\0')
+		return -EINVAL;
+
+	ch_val = val[0];
+
 	if (ch_val < 32 || ch_val > 126)
 		return -EINVAL;
+
 	my_str[idx] = (char)ch_val;
 	return 0;
 }
 
 static int param_get_ch_val(char *buffer, const struct kernel_param *kp)
 {
-	return scnprintf(buffer, PAGE_SIZE, "%d", ch_val);
+	return scnprintf(buffer, PAGE_SIZE, "%c", (char)ch_val);
 }
 
 static int param_get_my_str(char *buffer, const struct kernel_param *kp)
